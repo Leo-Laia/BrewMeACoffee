@@ -1,0 +1,33 @@
+{
+  "name": "BrewMeACoffee",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Leo-Laia/BrewMeACoffee.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Leo-Laia/BrewMeACoffee/issues"
+  },
+  "homepage": "https://github.com/Leo-Laia/BrewMeACoffee#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.21.1",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "pg": "^8.13.1",
+    "pg-hstore": "^2.3.4",
+    "pm2": "^5.4.2",
+    "sequelize": "^6.37.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}

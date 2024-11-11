@@ -1,0 +1,13 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: brewmeacoffee
+    ports:
+      - "6981:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
