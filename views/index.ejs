@@ -1,0 +1,50 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Metadados -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BrewMeACoffee</title>
+
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  />
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <!-- Conteúdo principal -->
+  <div class="container-fluid">
+    <div class="cafe-container">
+      <div class="cafe">
+        <div class="teto"></div>
+        <div class="parede">
+          <div class="letreiro">
+            <span id="textoLetreiro">Bem-vindo</span>
+          </div>
+          <div class="seta"></div>
+          <div class="porta" id="portaCafe"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modais -->
+  <%- include('modals/loginModal') %>
+  <%- include('modals/registerModal') %>
+
+  <!-- jQuery e Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"
+  ></script>
+  <!-- Scripts personalizados -->
+  <script src="/js/scripts.js"></script>
+</body>
+</html>
