@@ -14,6 +14,7 @@ router.get('/', (req, res) => {
 
 // Rota de Registro
 router.post('/register', (req, res) => {
+  console.log("routes/auth.js->register")
   const { nome, telefone, email, senha } = req.body;
   let errors = [];
 
@@ -23,6 +24,7 @@ router.post('/register', (req, res) => {
   }
 
   if (senha.length < 6) {
+    console.log("Senha invalida")
     errors.push({ msg: 'A senha deve ter pelo menos 6 caracteres' });
   }
 
@@ -76,8 +78,8 @@ router.post('/register', (req, res) => {
 
 // Rota de Login
 router.post(
-  '/login',
-  (req, res, next) => {
+  '/login',  (req, res, next) => {
+    console.log("routes/auth.js->login")
     passport.authenticate('local', {
       successRedirect: '/home',
       failureRedirect: '/',

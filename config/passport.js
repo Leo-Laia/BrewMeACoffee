@@ -7,7 +7,10 @@ const Usuario = db.Usuario;
 
 module.exports = function (passport) {
   passport.use(
-    new LocalStrategy({ usernameField: 'email' }, (email, senha, done) => {
+    new LocalStrategy({ usernameField: 'email', passwordField: 'senha' }, (email, senha, done) => {
+      console.log("config/passport.js");
+      console.log(email);
+      console.log(senha);
       // Procurar usuário pelo email
       Usuario.findOne({ where: { email } })
         .then((usuario) => {
@@ -31,10 +34,12 @@ module.exports = function (passport) {
 
   // Serializar e desserializar o usuário
   passport.serializeUser((usuario, done) => {
+    console.log("config/passport.js->serializeUser")
     done(null, usuario.id);
   });
 
   passport.deserializeUser((id, done) => {
+    console.log("config/passport.js->deserializeUser")
     Usuario.findByPk(id)
       .then((usuario) => {
         done(null, usuario);

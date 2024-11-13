@@ -24,6 +24,7 @@ app.use(
     }),
   })
 );
+
 // Inicialização do Passport
 // Configuração do Passport
 require('./config/passport')(passport);
@@ -35,13 +36,12 @@ app.use(flash());
 
 // Middleware para disponibilizar mensagens flash nas views
 app.use((req, res, next) => {
+  console.log('Middleware flash executado, mensagens:', req.flash());
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
-  //res.locals.usuario = req.user || null; // Definindo usuario para as views
-  //console.log('res.locals.usuario:', res.locals.usuario); // Log para verificar
   next();
-})
+});
 
 // Configuração do EJS
 app.set('view engine', 'ejs');
