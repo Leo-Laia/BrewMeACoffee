@@ -19,6 +19,27 @@
 <body>
   <%- include('partials/navbar') %>
 
+<!-- Mensagens Flash -->
+<div class="container mt-5">
+  <% if (success_msg) { %>
+  <div class="alert alert-success">
+    <%= success_msg %>
+  </div>
+  <% } %>
+
+  <% if (error_msg) { %>
+  <div class="alert alert-danger">
+    <%= error_msg %>
+  </div>
+  <% } %>
+
+  <% if (error) { %>
+  <div class="alert alert-danger">
+    <%= error %>
+  </div>
+  <% } %>
+</div>
+
   <!-- Conteúdo principal -->
   <div class="container-fluid">
     <div class="cafe-container">
@@ -36,8 +57,10 @@
   </div>
 
   <!-- Modais -->
+   
   <%- include('modals/loginModal') %>
   <%- include('modals/registerModal') %>
+  
 
   <!-- jQuery e Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
