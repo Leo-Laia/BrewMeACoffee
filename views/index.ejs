@@ -20,25 +20,41 @@
   <%- include('partials/navbar') %>
 
 <!-- Mensagens Flash -->
-<div class="container mt-5">
-  <% if (success_msg) { %>
-  <div class="alert alert-success">
-    <%= success_msg %>
-  </div>
-  <% } %>
+<% if ((success_msg && success_msg.length > 0) || (error_msg && error_msg.length > 0) || (error && error.length > 0) || (errors && errors.length > 0)) { %>
+  <div class="container mt-5">
+    <% if (success_msg && success_msg.length > 0) { %>
+      <% success_msg.forEach(function(msg) { %>
+        <div class="alert alert-success">
+          <%= msg %>
+        </div>
+      <% }) %>
+    <% } %>
 
-  <% if (error_msg) { %>
-  <div class="alert alert-danger">
-    <%= error_msg %>
-  </div>
-  <% } %>
+    <% if (error_msg && error_msg.length > 0) { %>
+      <% error_msg.forEach(function(msg) { %>
+        <div class="alert alert-danger">
+          <%= msg %>
+        </div>
+      <% }) %>
+    <% } %>
 
-  <% if (error) { %>
-  <div class="alert alert-danger">
-    <%= error %>
+    <% if (error && error.length > 0) { %>
+      <% error.forEach(function(msg) { %>
+        <div class="alert alert-danger">
+          <%= msg %>
+        </div>
+      <% }) %>
+    <% } %>
+
+    <% if (errors && errors.length > 0) { %>
+      <% errors.forEach(function(error) { %>
+        <div class="alert alert-danger">
+          <%= error.msg %>
+        </div>
+      <% }) %>
+    <% } %>
   </div>
   <% } %>
-</div>
 
   <!-- Conteúdo principal -->
   <div class="container-fluid">
