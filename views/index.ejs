@@ -17,24 +17,10 @@
 <body>
   <%- include('partials/navbar') %>
 
-  <!-- Conteúdo principal -->
-  <div class="container-fluid">
-    <div class="cafe-container">
-      <div class="cafe">
-        <div class="teto"></div>
-        <div class="parede">
-          <div class="letreiro">
-            <span id="textoLetreiro">Bem-vindo</span>
-          </div>
-          <div class="seta"></div>
-          <div class="porta" id="portaCafe"></div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="background-image"></div>
+  <div class="container"><div class="hover-area"></div></div>
 
   <!-- Modais -->
-   
   <%- include('modals/loginModal') %>
   <%- include('modals/registerModal') %>
   
@@ -45,6 +31,44 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
   <!-- Scripts personalizados -->
   <script src="/js/scripts.js"></script>
+
+<script>
+  $(document).ready(function() {
+  function adjustBackground() {
+    var windowWidth = $(window).width();
+    var windowHeight = $(window).height();
+    var imageRatio = 1920 / 1080; // Ajuste para a proporção real da imagem
+    var windowRatio = windowWidth / windowHeight;
+
+    if (windowRatio > imageRatio) {
+      $('.background-image').css({
+        'background-size': '100% auto' // Preenche horizontalmente
+      });
+    } else {
+      $('.background-image').css({
+        'background-size': 'auto 100%' // Preenche verticalmente
+      });
+    }
+  }
+
+  adjustBackground(); // Ajusta ao carregar
+  $(window).resize(adjustBackground); // Ajusta ao redimensionar
+
+  $('.hover-area').hover(
+    function() {
+      $('.background-image').css('background-image', "url('cafe4.jpg')");
+    },
+    function() {
+      $('.background-image').css('background-image', "url('cafe3.png')");
+    }
+  );
+
+  $('.hover-area').click(function () {
+      // Ao clicar na porta
+      $('#loginModal').modal('show');
+    });
+});
+</script>
 
   <script>
   $(document).ready(function() {
