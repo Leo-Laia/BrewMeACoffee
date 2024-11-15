@@ -52,6 +52,12 @@ app.use((req, res, next) => {
   next();
 });
 
+// Middleware para disponibilizar o usuário logado nas views
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
+
 // Configuração do EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -61,11 +67,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Rotas
 const authRoutes = require('./routes/auth');
+const dashboardRoutes = require('./routes/dashboard');
 app.use('/', authRoutes);
-const { ensureAuthenticated } = require('./config/auth');
-app.get('/home', ensureAuthenticated, (req, res) => {
-  res.render('home', { usuario: req.user });
-});
+app.use('/dashboard', dashboardRoutes);
 
 
 db.sequelize.authenticate()
