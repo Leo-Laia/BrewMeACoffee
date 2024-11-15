@@ -14,10 +14,78 @@
   <%- include('partials/navbar') %>
 
   <div class="container mt-5">
-    <h1>Bem-vindo, <%= currentUser.nome %>!</h1>
-    <p>Este é o seu painel de controle.</p>
-    <!-- Adicione mais conteúdo aqui -->
+    <h1>Bem-vindo, <%= usuario.nome %>!</h1>
+  
+    <!-- Criar nova fila -->
+    <form action="/dashboard/filas" method="POST">
+      <div class="form-group">
+        <label for="nome">Nome da Fila</label>
+        <input type="text" class="form-control" id="nome" name="nome" required />
+      </div>
+      <div class="form-group">
+        <label for="url">URL</label>
+        <input type="text" class="form-control" id="url" name="url" />
+      </div>
+      <div class="form-group">
+        <label for="pessoas">Pessoas (separadas por vírgula)</label>
+        <input type="text" class="form-control" id="pessoas" name="pessoas" />
+      </div>
+      <button type="submit" class="btn btn-primary">Criar Fila</button>
+    </form>
+  
+    <!-- Listar filas -->
+    <h2 class="mt-5">Minhas Filas</h2>
+    <% if (filas.length > 0) { %>
+      <ul class="list-group">
+        <% filas.forEach(fila => { %>
+          <li class="list-group-item">
+            <strong><%= fila.nome %></strong> - <%= fila.url %>
+            <button class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#editFilaModal<%= fila.id %>">Editar</button>
+            <form action="/dashboard/filas/<%= fila.id %>/delete" method="POST" class="d-inline">
+              <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+            </form>
+          </li>
+  
+          <!-- Modal de edição -->
+          <div class="modal fade" id="editFilaModal<%= fila.id %>" tabindex="-1" role="dialog" aria-labelledby="editFilaModalLabel<%= fila.id %>" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <form action="/dashboard/filas/<%= fila.id %>" method="POST">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="editFilaModalLabel<%= fila.id %>">Editar Fila</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <label for="nomeEdit<%= fila.id %>">Nome da Fila</label>
+                      <input type="text" class="form-control" id="nomeEdit<%= fila.id %>" name="nome" value="<%= fila.nome %>" required />
+                    </div>
+                    <div class="form-group">
+                      <label for="urlEdit<%= fila.id %>">URL</label>
+                      <input type="text" class="form-control" id="urlEdit<%= fila.id %>" name="url" value="<%= fila.url %>" />
+                    </div>
+                    <div class="form-group">
+                      <label for="pessoasEdit<%= fila.id %>">Pessoas (separadas por vírgula)</label>
+                      <input type="text" class="form-control" id="pessoasEdit<%= fila.id %>" name="pessoas" value="<%= fila.pessoas.join(', ') %>" />
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p>Nenhuma fila encontrada.</p>
+    <% } %>
   </div>
+  
 
   <!-- jQuery e Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
