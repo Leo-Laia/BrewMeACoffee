@@ -36,11 +36,19 @@ app.use(flash());
 
 // Middleware para disponibilizar mensagens flash nas views
 app.use((req, res, next) => {
-  console.log('Middleware flash executado, mensagens:', req.flash());
+  
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
   res.locals.errors = req.flash('errors');
+
+  console.log('Middleware flash executado, mensagens:', {
+    success_msg: res.locals.success_msg,
+    error_msg: res.locals.error_msg,
+    error: res.locals.error,
+    errors: res.locals.errors,
+  });
+
   next();
 });
 
@@ -59,11 +67,6 @@ app.get('/home', ensureAuthenticated, (req, res) => {
   res.render('home', { usuario: req.user });
 });
 
-
-// Iniciando o servidor
-//app.listen(3000, () => {
-//  console.log('Servidor rodando na porta 3000');
-//});
 
 db.sequelize.authenticate()
   .then(() => {
