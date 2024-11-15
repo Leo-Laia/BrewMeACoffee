@@ -34,6 +34,7 @@ router.post('/register', (req, res) => {
       nome,
       telefone,
       email,
+      showRegisterModal: true
     });
   } else {
     
@@ -76,22 +77,36 @@ router.post('/register', (req, res) => {
   }
 });
 
+
 // Rota de Login
-router.post(
-  '/login',  (req, res, next) => {
-    console.log("routes/auth.js->login")
-    passport.authenticate('local', {
-      successRedirect: '/home',
-      failureRedirect: '/',
-      failureFlash: true,
-    })(req, res, next);
-  }
-);
+router.post('/login', (req, res, next) => {
+  console.log("routes/auth.js->login")
+  passport.authenticate('local', (err, user, info) => {
+    if (err) { return next(err); }
+    if (!user) {
+      // Define a mensagem flash
+      req.flash('error_msg', info.message || 'Falha no login');
+      // Recupera a mensagem flash imediatamente
+      const error_msg = req.flash('error_msg');
+      return res.render('index', {
+        showLoginModal: true,
+        email: req.body.email, // Passa o email de volta para a view
+        error_msg // Passa a mensagem de erro para a view
+      });
+    }
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      return res.redirect('/home');
+    });
+  })(req, res, next);
+});
+
+
 
 // Rota de Logout
 router.get('/logout', (req, res) => {
   req.logout(() => {
-    req.flash('success_msg', 'Você saiu da sua conta');
+    req.flash('success_msg', 'Ei volte mais vezes!');
     res.redirect('/');
   });
 });
